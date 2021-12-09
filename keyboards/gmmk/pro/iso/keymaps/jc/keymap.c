@@ -65,11 +65,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-      tap_code(KC_VOLU);
-    } else {
-      tap_code(KC_VOLD);
+    switch(biton32(layer_state)) {
+        // Layer 1 - Zoom in and out
+        case 1:
+            if (clockwise) {
+                tap_code16(C(KC_EQL));
+            } else {
+                tap_code16(C(KC_MINS));
+            }
+            break;
+
+        // Layer 0 - Volume control
+        default:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+            break;
     }
+
     return true;
 }
 #endif
