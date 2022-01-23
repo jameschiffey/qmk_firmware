@@ -2,7 +2,7 @@
 
 // qmk compile -kb capsunlocked/cu65 -km jc
 
-// Hack to allow different actions for tap or hold back tick.
+// Hack to allow different actions for tap or hold grave.
 #define T_H_GRV LT(0,KC_GRV)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -26,7 +26,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case T_H_GRV:
             if (record->tap.count && record->event.pressed) {
-                tap_code16(KC_GRV); // Tap = back tick
+                tap_code16(KC_GRV); // Tap = grave
             } else if (record->event.pressed) {
                 tap_code16(KC_SLEP); // Hold = sleep
             }
@@ -39,7 +39,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case T_H_GRV:
-            return 1000; // Custom delay before tapping sleep key
+            return 750; // Custom delay for tap/hold grave
         default:
             return TAPPING_TERM;
     }
