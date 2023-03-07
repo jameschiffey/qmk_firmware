@@ -1,2 +1,1 @@
 RGB_MATRIX_CUSTOM_USER = yes
-VIA_ENABLE = yes
